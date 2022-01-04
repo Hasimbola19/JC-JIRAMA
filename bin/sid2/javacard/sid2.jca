@@ -1,0 +1,796 @@
+// converted by version 1.3
+// on Tue Jan 04 15:57:41 MSK 2022
+
+.package sid2 {
+	.aid 0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x3 1.0;		//java/rmi
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.3;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x2:0x9 1.0;		//javacardx/apdu
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1:0x1 1.0;		//javacard/framework/service
+	}
+
+	.applet {
+		0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0:0x0 CompteurApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 2.9 CompteurApplet/puc;
+		// 1
+		instanceFieldRef 2.9 CompteurApplet/pin;
+		// 2
+		instanceFieldRef byte CompteurApplet/state;
+		// 3
+		instanceFieldRef byte[] CompteurApplet/tmp;
+		// 4
+		instanceFieldRef 4.6 CompteurApplet/dispatcher;
+		// 5
+		instanceFieldRef byte[] JiramaImpl/compteur;
+		// 6
+		instanceFieldRef byte[] JiramaImpl/number;
+		// 7
+		classRef 4.4;		// javacard/framework/service/RMIService
+		// 8
+		classRef JiramaImpl;
+		// 9
+		staticMethodRef JiramaImpl/<init>()V;
+		// 10
+		staticMethodRef 4.4.0(Ljava/rmi/Remote;)V;		// javacard/framework/service/RMIService.<init>(Ljava/rmi/Remote;)V
+			.descriptor	Ljava/rmi/Remote;	1.0;
+
+		// 11
+		classRef 4.6;		// javacard/framework/service/Dispatcher
+		// 12
+		staticMethodRef 4.6.0(S)V;		// javacard/framework/service/Dispatcher.<init>(S)V
+		// 13
+		classRef CompteurApplet;
+		// 14
+		virtualMethodRef 4.6.1(Ljavacard/framework/service/Service;B)V;		// addService(Ljavacard/framework/service/Service;B)V
+			.descriptor	Ljavacard/framework/service/Service;	4.0;
+
+		// 15
+		classRef 2.9;		// javacard/framework/OwnerPIN
+		// 16
+		staticMethodRef 2.9.0(BB)V;		// javacard/framework/OwnerPIN.<init>(BB)V
+		// 17
+		staticMethodRef 2.8.13(SB)[B;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+		// 18
+		virtualMethodRef 2.3.1()V;		// register()V
+		// 19
+		virtualMethodRef 2.9.5()V;		// reset()V
+		// 20
+		virtualMethodRef 2.3.3()Z;		// selectingApplet()Z
+		// 21
+		virtualMethodRef 2.10.1()[B;		// getBuffer()[B
+		// 22
+		staticMethodRef CompteurApplet/processVerify(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+		// 23
+		staticMethodRef CompteurApplet/processChangeReferenceData(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+		// 24
+		virtualMethodRef 2.10.6()S;		// setIncomingAndReceive()S
+		// 25
+		staticMethodRef 2.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 26
+		staticFieldRef byte[] CompteurApplet/OpA;
+		// 27
+		staticMethodRef 2.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 28
+		staticMethodRef CompteurApplet/unsigned(B)S;
+		// 29
+		staticMethodRef 2.16.3([BSSB)S;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+		// 30
+		virtualMethodRef 2.9.1([BSB)Z;		// check([BSB)Z
+		// 31
+		virtualMethodRef 2.9.2()B;		// getTriesRemaining()B
+		// 32
+		virtualMethodRef 2.9.8([BSB)V;		// update([BSB)V
+		// 33
+		virtualMethodRef 2.9.6()V;		// resetAndUnblock()V
+		// 34
+		staticMethodRef 4.5.0()V;		// javacard/framework/service/CardRemoteObject.<init>()V
+		// 35
+		staticMethodRef 2.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 36
+		staticMethodRef CompteurApplet/<init>([BSB)V;
+		// 37
+		staticMethodRef 2.16.6([BSS)S;		// javacard/framework/Util.setShort([BSS)S
+	}
+
+	.interface public abstract IJirama 0 {
+
+		.remote;
+
+		.superInterfaces {
+			1.0;		// java/rmi/Remote
+		}
+
+		.method public abstract .remote  setCompteur([B)V 0 {
+		}
+
+		.method public abstract .remote  getCompteur()[B 1 {
+		}
+
+		.method public abstract .remote  incrementer([B[B)[B 2 {
+		}
+
+		.method public abstract .remote  decrementer([B[B)[B 3 {
+		}
+
+		.method public abstract .remote  setNumber([B)V 4 {
+		}
+
+		.method public abstract .remote  getNumber()[B 5 {
+		}
+
+	}
+
+	.class public CompteurApplet 1 extends 2.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 2.9 puc 0;		// Ljavacard/framework/OwnerPIN;
+			private 2.9 pin 1;		// Ljavacard/framework/OwnerPIN;
+			private byte[] tmp 2;		// [B
+			private 4.6 dispatcher 3;		// Ljavacard/framework/service/Dispatcher;
+			private byte state 4;		// B
+			public static final short _0 = 0;		// S
+			public static final byte INS_INIT_OPERAND = 16;		// B
+			public static final byte INS_ADD = 32;		// B
+			public static final byte INS_SUBTRACT = 48;		// B
+			public static final byte OPERAND_A = 1;		// B
+			public static final byte OPERAND_B = 2;		// B
+			public static short SW_NOT_EQUAL_LENGTH 0 = 26896;		// S
+			public static short SW_OVERFLOW_OCCURS 1 = 26897;		// S
+			public static short SW_UNDERFLOW_OCCURS 2 = 26898;		// S
+			public static byte[] OpA 3 = {0,0,0,0,0,0,0,0};		// [B
+			public static byte[] OpB 4 = {0,0,0,0,0,0,0,0};		// [B
+			public static byte[] result 5 = {0,0,0,0,0,0,0,0};		// [B
+			public static byte lenA 6;		// B
+			public static byte lenB 7;		// B
+			private static final byte CLA_APDU = -128;		// B
+			private static final byte INS_VERIFY = 32;		// B
+			private static final byte INS_GETCHALLENGE = -124;		// B
+			private static final byte MAX_PIN_SIZE = 8;		// B
+			private static final byte MIN_PIN_SIZE = 4;		// B
+			private static final byte PIN_TRIES = 3;		// B
+			private static final byte PUC_SIZE = 16;		// B
+			private static final byte PUC_TRIES = 3;		// B
+			private static final byte STATE_INITIAL = 1;		// B
+			private static final byte STATE_PREPERSONALISED = 2;		// B
+			private static final byte STATE_PERSONALISED = 3;		// B
+			private static final short MAX_BLOCK_LEN = 256;		// S
+			private static final short SW_PIN_INCORRECT_TRIES_LEFT = 25536;		// S
+			private static final short TMP_SIZE = 18;		// S
+			private static final byte INS_CHANGEREFERENCEDATA = 64;		// B
+		}
+
+		.publicMethodTable 4 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.implementedInterfaceInfoTable { 
+			.interface 3.0 { 		// javacardx/apdu/ExtendedLength
+			}
+
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 4;
+			.locals 0;
+
+				L0:	new 13;		// sid2/CompteurApplet
+					aload_0;
+					sload_1;
+					sload_2;
+					invokespecial 36;		// sid2/CompteurApplet.<init>([BSB)V
+					return;
+		}
+
+		.method protected <init>([BSB)V 1 {
+			.stack 5;
+			.locals 1;
+
+				L0:	aload_0;
+					invokespecial 35;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					aconst_null;
+					putfield_a 0;		// reference sid2/CompteurApplet.puc
+					aload_0;
+					aconst_null;
+					putfield_a 1;		// reference sid2/CompteurApplet.pin
+					aload_0;
+					sconst_0;
+					putfield_b 2;		// byte sid2/CompteurApplet.state
+					aload_0;
+					aconst_null;
+					putfield_a 3;		// reference sid2/CompteurApplet.tmp
+					new 7;		// javacard/framework/service/RMIService
+					dup;
+					new 8;		// sid2/JiramaImpl
+					dup;
+					invokespecial 9;		// sid2/JiramaImpl.<init>()V
+					invokespecial 10;		// javacard/framework/service/RMIService.<init>(Ljava/rmi/Remote;)V
+					astore 4;
+					aload_0;
+					new 11;		// javacard/framework/service/Dispatcher
+					dup;
+					sconst_1;
+					invokespecial 12;		// javacard/framework/service/Dispatcher.<init>(S)V
+					putfield_a 4;		// reference sid2/CompteurApplet.dispatcher
+					getfield_a_this 4;		// reference sid2/CompteurApplet.dispatcher
+					aload 4;
+					sconst_2;
+					invokevirtual 14;		// addService(Ljavacard/framework/service/Service;B)V
+					aload_0;
+					new 15;		// javacard/framework/OwnerPIN
+					dup;
+					sconst_3;
+					bspush 8;
+					invokespecial 16;		// javacard/framework/OwnerPIN.<init>(BB)V
+					putfield_a 1;		// reference sid2/CompteurApplet.pin
+					aload_0;
+					sconst_1;
+					putfield_b 2;		// byte sid2/CompteurApplet.state
+					aload_0;
+					bspush 18;
+					sconst_2;
+					invokestatic 17;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 3;		// reference sid2/CompteurApplet.tmp
+					aload_0;
+					invokevirtual 18;		// register()V
+					return;
+		}
+
+		.method public deselect()V 4 {
+			.stack 1;
+			.locals 0;
+
+				L0:	getfield_a_this 1;		// reference sid2/CompteurApplet.pin
+					invokevirtual 19;		// reset()V
+					getfield_a_this 0;		// reference sid2/CompteurApplet.puc
+					invokevirtual 19;		// reset()V
+					return;
+		}
+
+		.method public select()Z 6 {
+			.stack 1;
+			.locals 0;
+
+				L0:	sconst_1;
+					sreturn;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 6;
+			.locals 5;
+
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+				L0:	aload_0;
+					invokevirtual 20;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 21;		// getBuffer()[B
+					astore_2;
+					aload_2;
+					sconst_0;
+					baload;
+					sstore_3;
+					aload_2;
+					sconst_1;
+					baload;
+					sstore 4;
+					aload_2;
+					sconst_1;
+					baload;
+					sstore 5;
+					aload_2;
+					sconst_2;
+					baload;
+					sstore 6;
+					sload_3;
+					bspush -128;
+					if_scmpne L11;
+				L3:	sload 4;
+					slookupswitch L10 3 16 L6 32 L4 64 L5;
+				L4:	aload_0;
+					aload_1;
+					invokespecial 22;		// sid2/CompteurApplet.processVerify(Ljavacard/framework/APDU;)V
+					goto L12;
+				L5:	aload_0;
+					aload_1;
+					invokespecial 23;		// sid2/CompteurApplet.processChangeReferenceData(Ljavacard/framework/APDU;)V
+					goto L12;
+				L6:	aload_1;
+					invokevirtual 24;		// setIncomingAndReceive()S
+					pop;
+					sload 5;
+					bspush 8;
+					if_scmple L8;
+				L7:	sspush 26368;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L8:	sload 6;
+					sconst_1;
+					if_scmpne L10;
+				L9:	aload_2;
+					sconst_5;
+					getstatic_a 26;		// reference sid2/CompteurApplet.OpA
+					sconst_0;
+					aload_2;
+					sconst_4;
+					baload;
+					invokestatic 27;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+				L10:	sspush 27904;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+					goto L12;
+				L11:	sspush 28160;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L12:	return;
+		}
+
+		.method private processVerify(Ljavacard/framework/APDU;)V {
+			.stack 4;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+				L0:	getfield_b_this 2;		// byte sid2/CompteurApplet.state
+					sconst_3;
+					if_scmpeq L2;
+				L1:	sspush 27904;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L2:	aload_1;
+					invokevirtual 21;		// getBuffer()[B
+					astore_2;
+					aload_2;
+					sconst_2;
+					baload;
+					ifne L4;
+				L3:	aload_2;
+					sconst_3;
+					baload;
+					ifeq L5;
+				L4:	sspush 27270;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L5:	aload_0;
+					aload_2;
+					sconst_4;
+					baload;
+					invokespecial 28;		// sid2/CompteurApplet.unsigned(B)S
+					sstore_3;
+					sload_3;
+					sconst_4;
+					if_scmplt L7;
+				L6:	sload_3;
+					bspush 8;
+					if_scmple L8;
+				L7:	sspush 26368;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L8:	aload_1;
+					invokevirtual 24;		// setIncomingAndReceive()S
+					pop;
+					aload_2;
+					sconst_5;
+					sload_3;
+					sadd;
+					bspush 8;
+					sload_3;
+					ssub;
+					sconst_0;
+					invokestatic 29;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					pop;
+					getfield_a_this 1;		// reference sid2/CompteurApplet.pin
+					aload_2;
+					sconst_5;
+					bspush 8;
+					invokevirtual 30;		// check([BSB)Z
+					ifne L10;
+				L9:	sspush 25536;
+					getfield_a_this 1;		// reference sid2/CompteurApplet.pin
+					invokevirtual 31;		// getTriesRemaining()B
+					sor;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L10:	return;
+		}
+
+		.method private unsigned(B)S {
+			.stack 2;
+			.locals 0;
+
+				L0:	sload_1;
+					sspush 255;
+					sand;
+					sreturn;
+		}
+
+		.method private processChangeReferenceData(Ljavacard/framework/APDU;)V {
+			.stack 4;
+			.locals 8;
+
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+				L0:	aload_1;
+					invokevirtual 21;		// getBuffer()[B
+					astore_2;
+					aload_0;
+					aload_2;
+					sconst_4;
+					baload;
+					invokespecial 28;		// sid2/CompteurApplet.unsigned(B)S
+					sstore_3;
+					aload_2;
+					sconst_2;
+					baload;
+					sstore 4;
+					aload_2;
+					sconst_3;
+					baload;
+					sstore 5;
+					getfield_b_this 2;		// byte sid2/CompteurApplet.state
+					sconst_1;
+					if_scmple_w L17;
+				L1:	sload 4;
+					ifne L3;
+				L2:	sload 5;
+					ifeq L4;
+				L3:	sspush 27270;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	sload_3;
+					bspush 16;
+					ssub;
+					sstore 6;
+					sload 6;
+					sconst_4;
+					if_scmplt L6;
+				L5:	sload 6;
+					bspush 8;
+					if_scmple L7;
+				L6:	sspush 26368;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L7:	aload_1;
+					invokevirtual 24;		// setIncomingAndReceive()S
+					pop;
+					bspush 21;
+					sstore 7;
+					sconst_0;
+					sstore 8;
+					goto L12;
+				L8:	aload_2;
+					sload 7;
+					sload 8;
+					sadd;
+					baload;
+					sstore 9;
+					sload 9;
+					bspush 48;
+					if_scmplt L10;
+				L9:	sload 9;
+					bspush 57;
+					if_scmple L11;
+				L10:	sspush 27264;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L11:	sinc 8 1;
+				L12:	sload 8;
+					sload 6;
+					if_scmplt L8;
+				L13:	aload_2;
+					sload 7;
+					sload 6;
+					sadd;
+					bspush 8;
+					sload 6;
+					ssub;
+					sconst_0;
+					invokestatic 29;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					pop;
+					getfield_a_this 0;		// reference sid2/CompteurApplet.puc
+					aload_2;
+					sconst_5;
+					bspush 16;
+					invokevirtual 30;		// check([BSB)Z
+					ifne L15;
+				L14:	sspush 25536;
+					getfield_a_this 0;		// reference sid2/CompteurApplet.puc
+					invokevirtual 31;		// getTriesRemaining()B
+					sor;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L15:	getfield_a_this 1;		// reference sid2/CompteurApplet.pin
+					aload_2;
+					sload 7;
+					bspush 8;
+					invokevirtual 32;		// update([BSB)V
+					getfield_a_this 1;		// reference sid2/CompteurApplet.pin
+					invokevirtual 33;		// resetAndUnblock()V
+					getfield_b_this 2;		// byte sid2/CompteurApplet.state
+					sconst_2;
+					if_scmpne L23;
+				L16:	aload_0;
+					sconst_3;
+					putfield_b 2;		// byte sid2/CompteurApplet.state
+					goto L23;
+				L17:	sload 4;
+					sconst_1;
+					if_scmpne L19;
+				L18:	sload 5;
+					ifeq L20;
+				L19:	sspush 27270;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L20:	sload_3;
+					bspush 16;
+					if_scmpeq L22;
+				L21:	sspush 26368;
+					invokestatic 25;		// javacard/framework/ISOException.throwIt(S)V
+				L22:	aload_1;
+					invokevirtual 24;		// setIncomingAndReceive()S
+					pop;
+					getfield_a_this 0;		// reference sid2/CompteurApplet.puc
+					aload_2;
+					sconst_5;
+					sload_3;
+					s2b;
+					invokevirtual 32;		// update([BSB)V
+					getfield_a_this 0;		// reference sid2/CompteurApplet.puc
+					invokevirtual 33;		// resetAndUnblock()V
+				L23:	return;
+		}
+
+	}
+
+	.class public JiramaImpl 2 extends 4.5 {		// extends javacard/framework/service/CardRemoteObject
+
+		.remote;
+
+		.fields {
+			private byte[] compteur 0;		// [B
+			private byte[] number 1;		// [B
+		}
+
+		.publicMethodTable 1 {
+			equals(Ljava/lang/Object;)Z;
+			setCompteur([B)V;
+			getCompteur()[B;
+			incrementer([B[B)[B;
+			decrementer([B[B)[B;
+			getNumber()[B;
+			setNumber([B)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.implementedInterfaceInfoTable { 
+			.interface 1.0 { 		// java/rmi/Remote
+			}
+
+			.interface IJirama { 
+				1;		// setCompteur([B)V
+				2;		// getCompteur()[B
+				3;		// incrementer([B[B)[B
+				4;		// decrementer([B[B)[B
+				6;		// setNumber([B)V
+				5;		// getNumber()[B
+			}
+
+		}
+
+		.implementedRemoteInterfaceInfoTable { 
+			.interface IJirama { 
+				setCompteur([B)V 1;		// setCompteur([B)V
+				getCompteur()[B 2;		// getCompteur()[B
+				incrementer([B[B)[B 3;		// incrementer([B[B)[B
+				decrementer([B[B)[B 4;		// decrementer([B[B)[B
+				setNumber([B)V 6;		// setNumber([B)V
+				getNumber()[B 5;		// getNumber()[B
+			}
+
+		}
+
+		.method public <init>()V 0 {
+			.stack 5;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 34;		// javacard/framework/service/CardRemoteObject.<init>()V
+					aload_0;
+					sconst_0;
+					newarray 11;
+					putfield_a 5;		// reference sid2/JiramaImpl.compteur
+					aload_0;
+					bspush 8;
+					newarray 11;
+					dup;
+					bspush 7;
+					sconst_1;
+					bastore;
+					putfield_a 6;		// reference sid2/JiramaImpl.number
+					return;
+		}
+
+		.method public .remote  setCompteur([B)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					aload_1;
+					putfield_a 5;		// reference sid2/JiramaImpl.compteur
+					return;
+		}
+
+		.method public .remote  getCompteur()[B 2 {
+			.stack 1;
+			.locals 0;
+
+				L0:	getfield_a_this 5;		// reference sid2/JiramaImpl.compteur
+					areturn;
+		}
+
+		.method public .remote  incrementer([B[B)[B 3 {
+			.stack 5;
+			.locals 7;
+
+				L0:	bspush 6;
+					newarray 12;
+					astore 4;
+					aload_1;
+					arraylength;
+					sstore 5;
+					sload 5;
+					sconst_1;
+					ssub;
+					sstore 6;
+					sload 5;
+					newarray 11;
+					astore 7;
+					sconst_0;
+					sstore 8;
+					sconst_2;
+					newarray 11;
+					astore 9;
+					sload 6;
+					sstore_3;
+					goto L2;
+				L1:	aload 4;
+					sload_3;
+					aload_1;
+					sload_3;
+					baload;
+					sspush 255;
+					sand;
+					aload_2;
+					sload_3;
+					baload;
+					sspush 255;
+					sand;
+					sadd;
+					sload 8;
+					sadd;
+					sastore;
+					aload 9;
+					sconst_0;
+					aload 4;
+					sload_3;
+					saload;
+					invokestatic 37;		// javacard/framework/Util.setShort([BSS)S
+					pop;
+					aload 7;
+					sload_3;
+					aload 9;
+					sconst_1;
+					baload;
+					bastore;
+					aload 9;
+					sconst_0;
+					baload;
+					sstore 8;
+					sinc 3 -1;
+				L2:	sload_3;
+					ifge L1;
+				L3:	aload 7;
+					areturn;
+		}
+
+		.method public .remote  decrementer([B[B)[B 4 {
+			.stack 5;
+			.locals 7;
+
+				L0:	bspush 6;
+					newarray 12;
+					astore 4;
+					aload_1;
+					arraylength;
+					sstore 5;
+					sload 5;
+					sconst_1;
+					ssub;
+					sstore 6;
+					sload 5;
+					newarray 11;
+					astore 7;
+					sconst_0;
+					sstore 8;
+					sconst_2;
+					newarray 11;
+					astore 9;
+					sload 6;
+					sstore_3;
+					goto L2;
+				L1:	aload 4;
+					sload_3;
+					aload_1;
+					sload_3;
+					baload;
+					sspush 255;
+					sand;
+					aload_2;
+					sload_3;
+					baload;
+					sspush 255;
+					sand;
+					ssub;
+					sload 8;
+					sadd;
+					sastore;
+					aload 9;
+					sconst_0;
+					aload 4;
+					sload_3;
+					saload;
+					invokestatic 37;		// javacard/framework/Util.setShort([BSS)S
+					pop;
+					aload 7;
+					sload_3;
+					aload 9;
+					sconst_1;
+					baload;
+					bastore;
+					aload 9;
+					sconst_0;
+					baload;
+					sstore 8;
+					sinc 3 -1;
+				L2:	sload_3;
+					ifge L1;
+				L3:	aload 7;
+					areturn;
+		}
+
+		.method public .remote  getNumber()[B 5 {
+			.stack 1;
+			.locals 0;
+
+				L0:	getfield_a_this 6;		// reference sid2/JiramaImpl.number
+					areturn;
+		}
+
+		.method public .remote  setNumber([B)V 6 {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					aload_1;
+					putfield_a 6;		// reference sid2/JiramaImpl.number
+					return;
+		}
+
+	}
+
+}
